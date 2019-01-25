@@ -17,7 +17,6 @@ public class Car : MonoBehaviour {
 
 
     // private
-    Graph graphToFollow;
     List<Vector3> wp; // waypoints
     int currentIdx;
     Vector3 target;
