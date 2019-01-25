@@ -12,6 +12,7 @@ public class GraphBuilder : MonoBehaviour {
     // public
     public bool addVertices, addEdges;
     public bool saveLoad;
+    public bool autoLoad = true;
     public string savePath = "Assets/Text/graph.txt";
 
     // private
@@ -27,6 +28,7 @@ public class GraphBuilder : MonoBehaviour {
 	void Start () {
         GameObject graphObject = new GameObject("graphObject");
         graphtoBuild = graphObject.AddComponent<Graph>();
+        if (autoLoad) Load();
 	}
 	
 	void Update () {
