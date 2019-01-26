@@ -28,7 +28,8 @@ public class TaxiManager2 : MonoBehaviour
     public int clientID = 0;
 
     [Header("Taxi")]
-    public Taxi taxiPrefab;
+    public Taxi taxi;
+    public GameObject taxiPrefab;
     public Transform taxiSpawnpoint;
 
     [Header("Other Prefabs")]
@@ -37,34 +38,50 @@ public class TaxiManager2 : MonoBehaviour
 
 
     [Header ("Settings")]
-    public float spawnDelay;
-    public float countdown;
+    public float spawnClientDelay;
+    public float clientCountdown;
+    public float spawnTaxiDelay;
+    public float taxiCountdown;
 
     // Start is called before the first frame update
     void Start()
     {
-        countdown = 0;
+        clientCountdown = 2;
+        taxiCountdown = 2;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(countdown>0)
+        if(clientCountdown > 0)
         {
-
-            countdown -= Time.deltaTime; 
+            clientCountdown -= Time.deltaTime; 
 
         } else {
 
             //Insert spawn function here
             StartCoroutine("SpawnClient");
-            countdown = spawnDelay;
+            clientCountdown = spawnClientDelay;
+        }
+
+        if (taxiCountdown > 0)
+        {
+            taxiCountdown -= Time.deltaTime;
+
+        }
+        else
+        {
+
+            //Insert spawn function here
+            SpawnTaxi();
+            taxiCountdown = spawnTaxiDelay;
         }
     }
 
     void SpawnTaxi()
-    { 
-    
+    {
+        Instantiate(taxiPrefab, taxiSpawnpoint.position, Quaternion.identity);
+        //Taxi generatedTaxi = Instantiate(taxiPrefab, taxiSpawnpoint.position, Quaternion.identity) as Taxi;
     }
 
     IEnumerator SpawnClient()
@@ -72,7 +89,7 @@ public class TaxiManager2 : MonoBehaviour
         clientID++;
 
 
-// GENERATING RANDOM VALUES BUT NEVER SAME TWICE IN A ROW.
+    // GENERATING RANDOM VALUES BUT NEVER SAME TWICE IN A ROW.
 
         // ISSUE: Will have to reset once all have been used.
 
@@ -148,20 +165,14 @@ public class TaxiManager2 : MonoBehaviour
         colorsOccupied++;
 
 
-
-
-
-        Taxi generatedTaxi = Instantiate(taxiPrefab, taxiSpawnpoint.position, Quaternion.identity) as Taxi;
-        // generatedTaxi.assignedDestination = assignedDestination;
-        // generatedTaxi.assignedColor = assignedColor;
-
-        GameObject generatedClient = Instantiate(client, assignedOrigin.position, Quaternion.identity);
-        generatedClient.GetComponent<Renderer>().material.color = assignedColor;
-        generatedClient.GetComponent<Client>().clientID = clientID;
-
         GameObject generatedDestination = Instantiate(marker, assignedDestination.position, assignedDestination.rotation);
         generatedDestination.GetComponent<Renderer>().material.color = assignedColor;
         generatedDestination.GetComponent<Destination>().clientID = clientID;
+
+        GameObject generatedClient = Instantiate(client, assignedOrigin.position, Quaternion.identity);
+        generatedClient.GetComponent<Client>().assignedColor = assignedColor;
+        generatedClient.GetComponent<Client>().targetMarker = generatedDestination;
+        generatedClient.GetComponent<Client>().clientID = clientID;
 
         yield break;
 
