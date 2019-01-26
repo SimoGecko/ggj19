@@ -5,6 +5,8 @@ using System.Linq;
 
 public class Segment : MonoBehaviour {
 
+    /*
+
     public Color from, to;
 
     //to build
@@ -50,5 +52,7 @@ public class Segment : MonoBehaviour {
             }
         }
     }
+
+    */
 
 }

@@ -7,11 +7,10 @@ using System.Linq;
 
 ////////// DESCRIPTION //////////
 
-public class Car : MonoBehaviour {
+public class VehicleMovement : MonoBehaviour {
     // --------------------- VARIABLES ---------------------
 
     // public
-    /*
     public float speed = 3f;
     public float distToNext = .1f;
     public float distToKeep = .3f;
@@ -35,7 +34,6 @@ public class Car : MonoBehaviour {
         lr.positionCount = 0;
         stopped = true;
 
-        wp = new List<Vector3>();
         //GetPath(samplePoints.Select(x => x.position).ToList());
     }
 
@@ -54,9 +52,8 @@ public class Car : MonoBehaviour {
         stopped = false;
     }
 
-    void Move() {
-        if (currentIdx < 0 || currentIdx >= wp.Count || stopped) return;
-
+    private void Move() {
+        if (wp == null || currentIdx < 0 || currentIdx >= wp.Count) return;
         if(Vector3.Distance(target, wp[currentIdx]) < distToNext) {
             //change point
             if (currentIdx < wp.Count - 1) {
@@ -72,7 +69,7 @@ public class Car : MonoBehaviour {
             target += (wp[currentIdx]-target).normalized * speed * Time.deltaTime;
 
             transform.LookAt(target);
-            if(Vector3.Distance(transform.position, target) > distToKeep) {
+            if(Vector3.Distance(transform.position, target) >= distToKeep) {
                 transform.position = target - (target - transform.position).normalized * distToKeep;
             }
         }
@@ -91,7 +88,7 @@ public class Car : MonoBehaviour {
             }
         }
     }
-    */
+
 
     // queries
 

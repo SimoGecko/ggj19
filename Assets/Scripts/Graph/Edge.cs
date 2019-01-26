@@ -6,7 +6,6 @@ using UnityEngine;
 public class Edge
 {
     public Vertex u, v; // directed u,v
-    //public Segment s;
 
     //constructors
     public Edge() { }
@@ -14,11 +13,5 @@ public class Edge
     public Edge(Vertex u, Vertex v) {
         this.u = u;
         this.v = v;
-    }
-
-    public Edge(Vertex u, Vertex v, Segment s) {
-        this.u = u;
-        this.v = v;
-        //this.s = s;
     }
 }

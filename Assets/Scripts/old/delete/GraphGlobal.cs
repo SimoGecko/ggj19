@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GraphGlobal : MonoBehaviour {
+    /*
     public float joinDist = .1f;
 
     public Vertex[] v;
@@ -58,4 +59,5 @@ public class GraphGlobal : MonoBehaviour {
         e = global.Edges;
 
     }
+    */
 }

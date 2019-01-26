@@ -11,6 +11,7 @@ public class InputManager : MonoBehaviour {
     // --------------------- VARIABLES ---------------------
 
     // public
+    /*
     public float distToConnect = 1f;
 
 
@@ -71,14 +72,14 @@ public class InputManager : MonoBehaviour {
     }
 
     void SetLine() {
-        /*
+        
         for (int i = 0; i < vertexList.Count-1; i++) {
 
         }
         Vector3[] pointlist = PointList().ToArray();
         lr.positionCount = pointlist.Length;
         //lr.SetPositions(vertexList.Select(v => v.position).ToArray());
-        lr.SetPositions(pointlist);*/
+        lr.SetPositions(pointlist);
     }
 
     List<Vector3> PointList() {
@@ -114,10 +115,11 @@ public class InputManager : MonoBehaviour {
 
     // other
     private void OnDrawGizmos() {
-        /*Gizmos.color = Color.yellow;
+        Gizmos.color = Color.yellow;
         for (int i = 0; i < vertexList.Count-1; i++) {
             Gizmos.DrawLine(vertexList[i].position, vertexList[i + 1].position);
-        }*/
-    }
+        }
+   }*/
+    
 
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GraphSample : MonoBehaviour
 {
-
+    /*
     public Vertex[] vertices;
     public Edge[] edges;
 
@@ -36,5 +36,5 @@ public class GraphSample : MonoBehaviour
             sampleGraph.AddEdge(e);
         }
     }
-
+    */
 }

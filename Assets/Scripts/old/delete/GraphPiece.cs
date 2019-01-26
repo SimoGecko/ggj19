@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GraphPiece : MonoBehaviour
 {
-
+    /*
     public string xJunction = "1,2, 1,4, 1,6, 1,0, 3,4, 3,6, 3,0, 3,2, 5,6, 5,0, 5,2, 5,4, 7,0, 7,2, 7,4, 7,6"; // X junction
     public string iJunction = "1,2, 1,0, 3,0, 3,2";
 
@@ -48,6 +48,7 @@ public class GraphPiece : MonoBehaviour
             }
         }
     }
+    */
 }
 
 /*
