@@ -53,6 +53,8 @@ public class Car : MonoBehaviour {
     }
 
     private void Move() {
+        if (currentIdx < 0 || currentIdx >= wp.Count) return;
+
         if(Vector3.Distance(target, wp[currentIdx]) < distToNext) {
             //change point
             if (currentIdx < wp.Count - 1) {
