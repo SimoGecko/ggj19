@@ -122,6 +122,8 @@ public class Vertex {
     }
 }
 
+
+
 [System.Serializable]
 public class Edge {
     public Edge() { }
