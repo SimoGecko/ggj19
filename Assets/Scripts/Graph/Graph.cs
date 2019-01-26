@@ -3,6 +3,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 ////////// DESCRIPTION //////////
 
@@ -14,21 +15,13 @@ public class Graph : MonoBehaviour{
 
 
     // private
+    public bool directed = false;
+
     List<Vertex> vertices = new List<Vertex>();
-    List<Edge> edges = new List<Edge>();
+    Dictionary<Vertex, List<Edge>> edges = new Dictionary<Vertex, List<Edge>>();
 
     // references
 	
-	
-	// --------------------- BASE METHODS ------------------
-	void Start () {
-        
-	}
-	
-	void Update () {
-        
-	}
-
     // --------------------- CUSTOM METHODS ----------------
 
 
@@ -36,33 +29,30 @@ public class Graph : MonoBehaviour{
     public void AddVertex(Vector3 p) {
         AddVertex(new Vertex(p, NumVertices));
     }
-
-    
     public void AddVertex(Vertex v) {
         vertices.Add(v);
+        edges.Add(v, new List<Edge>());
     }
 
     public void AddEdge(Vertex u, Vertex v) {
-        AddEdge(u.id, v.id);
-    }
-
-    public void AddEdge(int u, int v) {
-        edges.Add(new Edge(u, v));
-        edges.Add(new Edge(v, u));
+        edges[u].Add(new Edge(u, v));
+        if(!directed)
+            edges[v].Add(new Edge(v, u));
     }
     public void AddEdge(Edge e) {
-        edges.Add(e);
+        edges[e.u].Add(e);
     }
 
 
     // queries
     int NumVertices { get { return vertices.Count; } }
-    int NumEdges { get { return edges.Count; } }
+    int NumEdges { get { return Edges.Length; } }
 
     public Vertex[] Vertices { get { return vertices.ToArray(); } }
-    public Edge[] Edges { get { return edges.ToArray(); } }
+    public Edge[] Edges { get { return edges.Values.SelectMany(x => x).ToArray(); } }
 
     // other
+    /*
     public void SaveToFile(string savePath) {
         string result = "";
         result += string.Format("{0},{1}\n", NumVertices, NumEdges);
@@ -89,7 +79,31 @@ public class Graph : MonoBehaviour{
         for (int i = n+1; i < n+m+1; i++) {
             AddEdge(Utility.Deserialize<Edge>(lines[i]));
         }
+    }*/
+
+    public Edge GetEdge(Vertex u, Vertex v) {
+        return edges[u].Find(e => e.v == v);
     }
+
+    public Edge[] Outgoing(Vertex v) {
+        return edges[v].ToArray();
+    }
+    public Vertex[] OutgoingV(Vertex u) {
+        return edges[u].Select(x => x.v).ToArray();
+    }
+
+    public bool IsConnected(Vertex u, Vertex v) {
+        return OutgoingV(v).Contains(u);
+    }
+
+    public Edge[] EdgeList(List<Vertex> vs) {
+        List<Edge> res = new List<Edge>();
+        for (int i = 0; i < vs.Count - 1; i++) {
+            res.Add(GetEdge(vs[i], vs[i + 1]));
+        }
+        return res.ToArray();
+    }
+
 
     private void OnDrawGizmos() {
         if (this != null) {
@@ -98,40 +112,9 @@ public class Graph : MonoBehaviour{
                 Gizmos.DrawWireSphere(v.position, .1f);
             }
             foreach (Edge e in Edges) {
-                Gizmos.DrawLine(Vertices[e.u].position, Vertices[e.v].position);
+                Gizmos.DrawLine(e.u.position, e.v.position);
             }
         }
     }
 
-}
-
-[System.Serializable]
-public class Vertex {
-    public Vertex() { }
-
-    public int id;
-    public float x, y, z;
-
-    public Vertex(Vector3 position, int id) {
-        this.id = id;
-        this.position = position;
-    }
-    public Vector3 position {
-        get { return new Vector3(x, y, z); }
-        set { x = value.x; y = value.y; z = value.z; }
-    }
-}
-
-
-
-[System.Serializable]
-public class Edge {
-    public Edge() { }
-
-    public int u, v;
-
-    public Edge(int u, int v) {
-        this.u = u;
-        this.v = v;
-    }
 }

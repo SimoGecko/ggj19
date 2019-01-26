@@ -11,40 +11,21 @@ public class GraphPiece : MonoBehaviour
     public string junction;
 
 
-    public Transform[] vertices;
+    public Vertex[] vertices;
+    public Edge[] edges;
     public Segment[] segments;
-    public EdgeSegment[] edges;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    
     [ContextMenu("generate edges")]
     void GenerateEdges() {
-        //find vertices
-
-        //find segments
-
-
         //generate edges
-        List<EdgeSegment> res = new List<EdgeSegment>();
         string[] pieces = junction.RemoveSpaceAndTabs().Split(',');
-        Debug.Log("pc=" + pieces.Length);
-        Debug.Log("sl=" + segments.Length);
         Debug.Assert(segments.Length == pieces.Length / 2, "segment size mismatch");
 
+        List<Edge> res = new List<Edge>();
         for (int i = 0; i < pieces.Length; i += 2) {
             int fr = int.Parse(pieces[i]);
             int to = int.Parse(pieces[i + 1]);
-            res.Add(new EdgeSegment(fr, to, segments[i / 2]));
+            res.Add(new Edge(vertices[fr], vertices[to], segments[i / 2]));
         }
         edges = res.ToArray();
     }
@@ -53,21 +34,23 @@ public class GraphPiece : MonoBehaviour
     private void OnDrawGizmos() {
         Gizmos.color = Color.black;
         if (vertices != null) {
-            foreach(Transform t in vertices) {
-                Gizmos.DrawSphere(t.position, .02f);
+            foreach(Vertex v in vertices) {
+                if(v!=null)
+                    Gizmos.DrawSphere(v.position, .02f);
             }
         }
         Gizmos.color = Color.grey;
-        foreach (EdgeSegment e in edges) {
-            if (e != null) {
-                //Gizmos.DrawLine(vertices[e.from].position, vertices[e.to].position);
+        if (edges != null) {
+            foreach (Edge e in edges) {
+                if (e != null) {
+                    //Gizmos.DrawLine(vertices[e.from].position, vertices[e.to].position);
+                }
             }
         }
     }
-
-    
 }
 
+/*
 [System.Serializable]
 public class EdgeSegment {
     public int from, to;
@@ -78,4 +61,4 @@ public class EdgeSegment {
         this.to = to;
         this.seg = seg;
     }
-}
+}*/

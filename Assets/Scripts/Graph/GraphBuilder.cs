@@ -28,6 +28,7 @@ public class GraphBuilder : MonoBehaviour {
 	void Start () {
         GameObject graphObject = new GameObject("graphObject");
         graphtoBuild = graphObject.AddComponent<Graph>();
+
         if (autoLoad) Load();
 	}
 	
@@ -58,12 +59,11 @@ public class GraphBuilder : MonoBehaviour {
 
     // commands
     void Save() {
-        graphtoBuild.SaveToFile(savePath);//Utility.SerializeObject(graphtoBuild, savePath);
+        //graphtoBuild.SaveToFile(savePath);//Utility.SerializeObject(graphtoBuild, savePath);
     }
 
     void Load() {
-        //graphtoBuild = Utility.DeSerializeObject<Graph>(savePath);
-        graphtoBuild.LoadFromFile(savePath);
+        //graphtoBuild.LoadFromFile(savePath);
     }
 
 
@@ -72,7 +72,6 @@ public class GraphBuilder : MonoBehaviour {
         Vector3 mousePos = Utility.MousePosition();
         return Utility.GetMin(graphtoBuild.Vertices, v => Vector3.SqrMagnitude(mousePos - v.position));
     }
-
 
 
     // other
