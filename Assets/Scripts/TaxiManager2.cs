@@ -57,7 +57,7 @@ public class TaxiManager2 : MonoBehaviour
         } else {
 
             //Insert spawn function here
-            StartCoroutine("PickRandom");
+            StartCoroutine("SpawnClient");
             countdown = spawnDelay;
         }
     }
