@@ -97,7 +97,7 @@ public class InputManager : MonoBehaviour {
                     segm.RemoveAt(0);
                     segm.RemoveAt(segm.Count - 1);
                     res.AddRange(segm);
-                }*/
+                }
             }
             res.Add(edges[edges.Length - 1].v.position);
             return res;

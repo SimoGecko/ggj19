@@ -28,7 +28,7 @@ public class Graph : MonoBehaviour{
 
     // --------------------- CUSTOM METHODS ----------------
     private void Start() {
-        Load();
+        //Load();
     }
 
     // commands
