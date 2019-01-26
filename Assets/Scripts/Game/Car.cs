@@ -24,7 +24,7 @@ public class Car : MonoBehaviour {
 
 
     // references
-    public Transform[] samplePoints;
+    //public Transform[] samplePoints;
     LineRenderer lr;
 	
 	
@@ -34,7 +34,8 @@ public class Car : MonoBehaviour {
         lr.positionCount = 0;
         stopped = true;
 
-        GetPath(samplePoints.Select(x => x.position).ToList());
+        wp = new List<Vector3>();
+        //GetPath(samplePoints.Select(x => x.position).ToList());
     }
 
     void Update () {
@@ -52,8 +53,8 @@ public class Car : MonoBehaviour {
         stopped = false;
     }
 
-    private void Move() {
-        if (currentIdx < 0 || currentIdx >= wp.Count) return;
+    void Move() {
+        if (currentIdx < 0 || currentIdx >= wp.Count || stopped) return;
 
         if(Vector3.Distance(target, wp[currentIdx]) < distToNext) {
             //change point
@@ -70,7 +71,7 @@ public class Car : MonoBehaviour {
             target += (wp[currentIdx]-target).normalized * speed * Time.deltaTime;
 
             transform.LookAt(target);
-            if(Vector3.Distance(transform.position, target) >= distToKeep) {
+            if(Vector3.Distance(transform.position, target) > distToKeep) {
                 transform.position = target - (target - transform.position).normalized * distToKeep;
             }
         }

@@ -29,7 +29,8 @@ public class InputManager : MonoBehaviour {
     // --------------------- BASE METHODS ------------------
     void Start () {
         car = FindObjectOfType<Car>();
-        graphToFollow = GetComponent<GraphGlobal>().global;
+        //graphToFollow = GetComponent<GraphGlobal>().global;
+        graphToFollow = GetComponent<GraphSample>().sampleGraph;
         lr = GetComponent<LineRenderer>();
         //vertexList = GetComponent<GraphGlobal>().v.ToList();
 	}
@@ -66,22 +67,24 @@ public class InputManager : MonoBehaviour {
     }
     void EndDragging() {
         dragging = false;
-        //car.GetPath(vertexList.Select(x => x.position).ToList());
+        car.GetPath(vertexList.Select(x => x.position).ToList());
     }
 
     void SetLine() {
+        /*
         for (int i = 0; i < vertexList.Count-1; i++) {
 
         }
         Vector3[] pointlist = PointList().ToArray();
         lr.positionCount = pointlist.Length;
         //lr.SetPositions(vertexList.Select(v => v.position).ToArray());
-        lr.SetPositions(pointlist);
+        lr.SetPositions(pointlist);*/
     }
 
     List<Vector3> PointList() {
-        List<Edge> edges = graphToFollow.EdgeList(vertexList);
-        if (edges.Count > 0) {
+
+        Edge[] edges = graphToFollow.EdgeList(vertexList);
+        if (edges.Length > 0) {
             List<Vector3> res = new List<Vector3>();
             foreach (Edge e in edges) {
                 Debug.Assert(e != null, "e null");
@@ -94,7 +97,7 @@ public class InputManager : MonoBehaviour {
                     res.AddRange(segm);
                 }
             }
-            res.Add(edges[edges.Count - 1].v.position);
+            res.Add(edges[edges.Length - 1].v.position);
             return res;
         }
         return new List<Vector3>();
