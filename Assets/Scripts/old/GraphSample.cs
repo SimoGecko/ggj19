@@ -26,6 +26,7 @@ public class GraphSample : MonoBehaviour
         
     }
 
+    [ContextMenu("create graph")]
     public void CreateGraph() {
         sampleGraph = new Graph();
         foreach(Vertex v in vertices) {
