@@ -53,18 +53,14 @@ public class TaxiManager2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-<<<<<<< HEAD:Assets/Scripts/Daniel's Scripts/TaxiManager2.cs
         if(clientCountdown > 0)
-=======
-        if(countdown>0)
->>>>>>> 79c59210bd120ee7b5a8078d9b931518e39e9c2a:Assets/Scripts/TaxiManager2.cs
+
         {
             clientCountdown -= Time.deltaTime; 
 
         } else {
 
             //Insert spawn function here
-<<<<<<< HEAD:Assets/Scripts/Daniel's Scripts/TaxiManager2.cs
             StartCoroutine("SpawnClient");
             clientCountdown = spawnClientDelay;
         }
@@ -87,16 +83,7 @@ public class TaxiManager2 : MonoBehaviour
     {
         Instantiate(taxiPrefab, taxiSpawnpoint.position, Quaternion.identity);
         //Taxi generatedTaxi = Instantiate(taxiPrefab, taxiSpawnpoint.position, Quaternion.identity) as Taxi;
-=======
-            StartCoroutine("SpawnClient");
-            countdown = spawnDelay;
-        }
-    }
 
-    void SpawnTaxi()
-    { 
-    
->>>>>>> 79c59210bd120ee7b5a8078d9b931518e39e9c2a:Assets/Scripts/TaxiManager2.cs
     }
 
     IEnumerator SpawnClient()
