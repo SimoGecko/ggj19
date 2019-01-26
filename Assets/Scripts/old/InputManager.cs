@@ -91,12 +91,13 @@ public class InputManager : MonoBehaviour {
                 Debug.Assert(e != null, "e null");
                 Debug.Assert(e.u != null, "e.u null");
                 res.Add(e.u.position);
+                /*
                 if (e.s != null) {
                     List<Vector3> segm = e.s.points.ToList();
                     segm.RemoveAt(0);
                     segm.RemoveAt(segm.Count - 1);
                     res.AddRange(segm);
-                }
+                }*/
             }
             res.Add(edges[edges.Length - 1].v.position);
             return res;

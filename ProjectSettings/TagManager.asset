@@ -4,8 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - TaxiEmpty
-  - TaxiFull
+  - Taxi
+  - ScoreManager
+  - Obstacle
+  - ProximityChecker
   layers:
   - Default
   - TransparentFX
