@@ -17,7 +17,7 @@ public class InputManager : MonoBehaviour {
     // private
     Graph graphToFollow;
     Car car;
-    List<Vertex> vertices = new List<Vertex>();
+    List<Transform> transformList = new List<Transform>();
     //List<Vector3> points = new List<Vector3>();
 
     bool dragging;
@@ -28,6 +28,7 @@ public class InputManager : MonoBehaviour {
     // --------------------- BASE METHODS ------------------
     void Start () {
         car = FindObjectOfType<Car>();
+        transformList = GetComponent<GraphGlobal>().v.ToList();
 	}
 	
 	void Update () {
@@ -49,27 +50,27 @@ public class InputManager : MonoBehaviour {
     // commands
     void StartDragging() {
         dragging = true;
-        vertices.Clear();
+        transformList.Clear();
     }
     void ContinueDragging() {
-        Vertex closest = Closest();
+        Transform closest = Closest();
         bool closeEnough = Vector3.Distance(closest.position, Utility.MousePosition()) < distToConnect;
-        bool notDuplicate = !vertices.Contains(closest);
-        bool connected = true;
-        bool first = vertices.Count == 0;
-        if (closeEnough && notDuplicate && (connected || first)) vertices.Add(closest);
+        bool notDuplicate = !transformList.Contains(closest);
+        bool connected = true; // TODO
+        bool first = transformList.Count == 0;
+        if (closeEnough && notDuplicate && (connected || first)) transformList.Add(closest);
     }
     void EndDragging() {
         dragging = false;
-        car.GetPath(vertices.Select(x => x.position).ToList());
+        car.GetPath(transformList.Select(x => x.position).ToList());
     }
 
 
 
     // queries
-    Vertex Closest() {
+    Transform Closest() {
         Vector3 mousePos = Utility.MousePosition();
-        return Utility.GetMin(graphToFollow.Vertices, v => Vector3.SqrMagnitude(mousePos - v.position));
+        return Utility.GetMin(transformList.ToArray(), v => Vector3.SqrMagnitude(mousePos - v.position));
     }
 
 
