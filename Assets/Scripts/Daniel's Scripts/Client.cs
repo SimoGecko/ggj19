@@ -16,7 +16,7 @@ public class Client : MonoBehaviour
 
     void Start()
     {
-        GetComponent<Renderer>().material.color = assignedColor;
+        // GetComponent<Renderer>().material.color = assignedColor;
         priceBubbleImage.color = assignedColor;
         maxPrice = Random.Range(5,10);
         priceBubbleText.text = maxPrice + "$";
