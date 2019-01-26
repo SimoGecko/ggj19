@@ -74,6 +74,11 @@ public class GraphBuilder : MonoBehaviour {
 
 
     // other
-    
+    private void OnDrawGizmos() {
+        Gizmos.color = Color.red;
+        if (addEdges && Input.GetMouseButton(0) && startingV != null)
+            Gizmos.DrawLine(startingV.position, Utility.MousePosition());
+    }
+
 
 }
