@@ -15,7 +15,7 @@ public class VehicleInput : MonoBehaviour {
 
 
     // private
-    Graph graphToFollow;
+    public Graph graphToFollow;
     VehicleMovement vehicle;
     List<Vertex> vertices = new List<Vertex>();
     //List<Vector3> points = new List<Vector3>();
@@ -31,9 +31,6 @@ public class VehicleInput : MonoBehaviour {
 	}
 	
 	void Update () {
-        if(graphToFollow==null)
-            graphToFollow = FindObjectOfType<Graph>();
-
         if (!dragging && Input.GetMouseButtonDown(0))
             StartDragging();
         if (dragging) {
@@ -60,6 +57,7 @@ public class VehicleInput : MonoBehaviour {
     void ContinueDragging() {
         if (vehicle == null) return;
         Vertex closest = Closest();
+        if (closest == null) Debug.LogError("no vertecx");
         bool closeEnough = Vector3.Distance(closest.position, Utility.MousePosition()) < distToConnect;
         bool notDuplicate = !vertices.Contains(closest);
         bool connected = vertices.Count==0 || graphToFollow.IsConnected(vertices.Last(), closest);

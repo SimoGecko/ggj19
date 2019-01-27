@@ -26,6 +26,9 @@ public class Taxi : MonoBehaviour
     public Image priceBubbleImage;
     public TextMeshProUGUI priceBubbleText;
 
+    public LineRenderer lr;
+    public Color lrColorMain;
+
     private Renderer taxiRenderer;
 
     [Header("Settings")]
@@ -36,6 +39,9 @@ public class Taxi : MonoBehaviour
 
     private void Start()
     {
+        lr = GetComponentInParent<LineRenderer>();
+        lr.startColor = lrColorMain;
+        lr.endColor = lrColorMain;
         priceBubbleCanvas.transform.parent = null;
         taxiRenderer = GetComponent<Renderer>();
         startColor = taxiRenderer.materials[0].color;
@@ -45,6 +51,8 @@ public class Taxi : MonoBehaviour
 
     public void Pickup()
     {
+        lr.startColor = assignedColor;
+        lr.endColor = assignedColor;
         isOccupied = true;
         adaptedPrice = maxPrice;
         taxiRenderer.materials[0].color = assignedColor;
@@ -90,6 +98,8 @@ public class Taxi : MonoBehaviour
 
     public void EmptyTaxi()
     {
+        lr.startColor = lrColorMain;
+        lr.endColor = lrColorMain;
         clientID = 0;
         Destroy(targetMarker);
         taxiRenderer.materials[0].color = startColor;
@@ -139,7 +149,7 @@ public class Taxi : MonoBehaviour
     {
         while(isOccupied)
         {
-            priceBubbleCanvas.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + zOffset);
+            priceBubbleCanvas.transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z + zOffset);
             yield return null;
         }
 

@@ -43,9 +43,12 @@ public class TaxiManager2 : MonoBehaviour
     public float spawnTaxiDelay;
     public float taxiCountdown;
 
+    public AudioManager audioManager;
+
     // Start is called before the first frame update
     void Start()
     {
+        audioManager = FindObjectOfType<AudioManager>();
         clientCountdown = 2;
         taxiCountdown = 2;
     }
@@ -83,6 +86,7 @@ public class TaxiManager2 : MonoBehaviour
     {
         Instantiate(taxiPrefab, taxiSpawnpoint.position, taxiSpawnpoint.rotation);
         //Taxi generatedTaxi = Instantiate(taxiPrefab, taxiSpawnpoint.position, Quaternion.identity) as Taxi;
+        audioManager.Play("CarStart_01");
 
     }
 
