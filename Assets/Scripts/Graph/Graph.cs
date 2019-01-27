@@ -14,6 +14,7 @@ public class Graph : MonoBehaviour{
     // public
     public bool directed = false;
     public bool showGraph = true;
+    public bool autoLoad = false;
 
 
     // private
@@ -28,7 +29,7 @@ public class Graph : MonoBehaviour{
 
     // --------------------- CUSTOM METHODS ----------------
     private void Start() {
-        //Load();
+        if(autoLoad) Load();
     }
 
     // commands
