@@ -75,7 +75,7 @@ public class VehicleMovement : MonoBehaviour {
         } else {
             dir = (target-transform.position).normalized;
             if (dir.magnitude == 0) dir = transform.forward;
-            Debug.Log("auto)");
+           // Debug.Log("auto)");
 
         }
 
