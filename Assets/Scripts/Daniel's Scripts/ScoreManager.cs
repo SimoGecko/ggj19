@@ -20,6 +20,7 @@ public class ScoreManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        totalCrashes = 0;
         UpdateScore();
     }
 
@@ -33,7 +34,7 @@ public class ScoreManager : MonoBehaviour
 
     public void CountCrash()
     {
-        if(totalCrashes <= lifes.Length)
+        if(totalCrashes < lifes.Length)
         {
             lifes[totalCrashes].SetActive(false);
         }
