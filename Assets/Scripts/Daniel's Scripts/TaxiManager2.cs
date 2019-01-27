@@ -81,7 +81,7 @@ public class TaxiManager2 : MonoBehaviour
 
     void SpawnTaxi()
     {
-        Instantiate(taxiPrefab, taxiSpawnpoint.position, Quaternion.identity);
+        Instantiate(taxiPrefab, taxiSpawnpoint.position, taxiSpawnpoint.rotation);
         //Taxi generatedTaxi = Instantiate(taxiPrefab, taxiSpawnpoint.position, Quaternion.identity) as Taxi;
 
     }
@@ -168,8 +168,9 @@ public class TaxiManager2 : MonoBehaviour
 
 
         GameObject generatedDestination = Instantiate(marker, assignedDestination.position, assignedDestination.rotation);
-        generatedDestination.GetComponent<Renderer>().material.color = assignedColor;
+        // generatedDestination.GetComponent<Renderer>().material.color = assignedColor;
         generatedDestination.GetComponent<Destination>().clientID = clientID;
+        generatedDestination.GetComponent<Destination>().speechBubbleImage.color = assignedColor;
 
         GameObject generatedClient = Instantiate(client, assignedOrigin.position, Quaternion.identity);
         generatedClient.GetComponent<Client>().assignedColor = assignedColor;

@@ -19,7 +19,7 @@ public class HonkManager : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        print("big trigger detected");
+        // print("big trigger detected");
         if(other.CompareTag("ProximityChecker") && isActive == true)
         {
             print(other.name + "in Proximity");

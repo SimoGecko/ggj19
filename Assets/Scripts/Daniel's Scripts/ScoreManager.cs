@@ -9,6 +9,11 @@ public class ScoreManager : MonoBehaviour
     public string scoreText;
     public Text scoreHolder;
 
+    public GameManager gameManager;
+
+    public int totalCrashes;
+    public int maxCrashes = 3;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,5 +25,15 @@ public class ScoreManager : MonoBehaviour
     {
         print("Score updated");
         scoreHolder.text = scoreText + scoreValue + "$";
+    }
+
+
+    public void CountCrash()
+    {
+        totalCrashes++;
+        if(totalCrashes>=maxCrashes)
+        {
+            gameManager.GameOver();
+        }
     }
 }

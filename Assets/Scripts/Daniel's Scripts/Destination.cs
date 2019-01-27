@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Destination : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class Destination : MonoBehaviour
     public float moneyEarned;
     public GameObject scoreManager;
     public AudioManager audioManager;
+    public Image speechBubbleImage;
 
     private void Start()
     {

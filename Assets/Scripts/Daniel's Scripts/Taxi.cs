@@ -17,6 +17,10 @@ public class Taxi : MonoBehaviour
     public float countdown;
     public bool isOccupied;
     public AudioManager audioManager;
+    public ScoreManager scoreManager;
+
+    private Color startColor;
+    public Color assignedColor;
 
     public GameObject priceBubbleCanvas;
     public Image priceBubbleImage;
@@ -26,20 +30,27 @@ public class Taxi : MonoBehaviour
 
     [Header("Settings")]
     public float blinkOutInterval;
+    public float zOffset;
 
 
     private void Start()
     {
-        audioManager = FindObjectOfType<AudioManager>();
+        priceBubbleCanvas.transform.parent = null;
         taxiRenderer = GetComponent<Renderer>();
+        startColor = taxiRenderer.materials[0].color;
+        audioManager = FindObjectOfType<AudioManager>();
+        scoreManager = FindObjectOfType<ScoreManager>();
     }
 
     public void Pickup()
     {
         isOccupied = true;
         adaptedPrice = maxPrice;
+        taxiRenderer.materials[0].color = assignedColor;
         priceBubbleText.text = adaptedPrice.ToString() + "$";
+        audioManager.Play("Pickup_01");
         StartCoroutine("CountDown");
+        StartCoroutine("SpeechBubblePos");
 
     }
 
@@ -63,6 +74,7 @@ public class Taxi : MonoBehaviour
                 if(adaptedPrice <= 0)
                 {
                     print("CUSTOMER LEFT");
+                    audioManager.Play("AngryPerson_01");
                     EmptyTaxi();
                 }
             }
@@ -79,6 +91,7 @@ public class Taxi : MonoBehaviour
     {
         clientID = 0;
         Destroy(targetMarker);
+        taxiRenderer.materials[0].color = startColor;
         isOccupied = false;
         priceBubbleCanvas.SetActive(false);
     }
@@ -97,6 +110,7 @@ public class Taxi : MonoBehaviour
             // FREEZE MOVEMENT HERE
             audioManager.Play("CarCrash_01");
             EmptyTaxi();
+            scoreManager.CountCrash();
             StartCoroutine("BlinkOut");
         }
     }
@@ -115,6 +129,17 @@ public class Taxi : MonoBehaviour
         taxiRenderer.enabled = false;
 
         Destroy(transform.parent.gameObject);
+
+        yield break;
+    }
+
+    IEnumerator SpeechBubblePos()
+    {
+        while(isOccupied)
+        {
+            priceBubbleCanvas.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + zOffset);
+            yield return null;
+        }
 
         yield break;
     }
