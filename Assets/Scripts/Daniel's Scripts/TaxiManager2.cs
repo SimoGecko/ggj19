@@ -44,6 +44,8 @@ public class TaxiManager2 : MonoBehaviour
     public float taxiCountdown;
 
     public AudioManager audioManager;
+    public int taxisPresent;
+    public int maxAmountTaxis;
 
     // Start is called before the first frame update
     void Start()
@@ -84,9 +86,13 @@ public class TaxiManager2 : MonoBehaviour
 
     void SpawnTaxi()
     {
-        Instantiate(taxiPrefab, taxiSpawnpoint.position, taxiSpawnpoint.rotation);
-        //Taxi generatedTaxi = Instantiate(taxiPrefab, taxiSpawnpoint.position, Quaternion.identity) as Taxi;
-        audioManager.Play("CarStart_01");
+        if(taxisPresent < maxAmountTaxis)
+        {
+            Instantiate(taxiPrefab, taxiSpawnpoint.position, taxiSpawnpoint.rotation);
+            //Taxi generatedTaxi = Instantiate(taxiPrefab, taxiSpawnpoint.position, Quaternion.identity) as Taxi;
+            audioManager.Play("CarStart_01");
+            taxisPresent++;
+        }
 
     }
 

@@ -18,6 +18,7 @@ public class Taxi : MonoBehaviour
     public bool isOccupied;
     public AudioManager audioManager;
     public ScoreManager scoreManager;
+    public TaxiManager2 taxiManager;
 
     private Color startColor;
     public Color assignedColor;
@@ -47,6 +48,7 @@ public class Taxi : MonoBehaviour
         startColor = taxiRenderer.materials[0].color;
         audioManager = FindObjectOfType<AudioManager>();
         scoreManager = FindObjectOfType<ScoreManager>();
+        taxiManager = FindObjectOfType<TaxiManager2>();
     }
 
     public void Pickup()
@@ -123,6 +125,7 @@ public class Taxi : MonoBehaviour
             audioManager.Play("CarCrash_01");
             EmptyTaxi();
             scoreManager.CountCrash();
+            taxiManager.taxisPresent--;
             StartCoroutine("BlinkOut");
         }
     }

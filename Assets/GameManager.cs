@@ -17,13 +17,13 @@ public class GameManager : MonoBehaviour
     {
         startMenu.SetActive(true);
         audioManager.Play("TrafficAmbience_01");
-        audioManager.Play("ThemeMusic_01");
     }
 
     public void StartGame()
     {
         startMenu.SetActive(false);
         taxiManager.enabled = true;
+        audioManager.Play("ThemeMusic_01");
     }
 
     private void Update()
