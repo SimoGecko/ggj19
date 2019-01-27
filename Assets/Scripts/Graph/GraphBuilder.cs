@@ -18,7 +18,7 @@ public class GraphBuilder : MonoBehaviour {
     Vertex startingV;
 
     Graph graphtoBuild;
-
+    public float roundRange = 1f;
 
 
     // references
@@ -63,6 +63,18 @@ public class GraphBuilder : MonoBehaviour {
                 graphtoBuild.AddEdge(startingV, endV);
                 Debug.Log("add edge");
             }
+        }
+    }
+
+    [ContextMenu("round edges")]
+    void RoundEdges() {
+        Vertex[] vertices = FindObjectsOfType<Vertex>();
+        foreach(Vertex v in vertices) {
+            Vector3 p = v.position;
+            p.x = Mathf.Round(p.x / roundRange) * roundRange;
+            p.y = Mathf.Round(p.y / roundRange) * roundRange;
+            p.z = Mathf.Round(p.z / roundRange) * roundRange;
+            v.position = p;
         }
     }
 
