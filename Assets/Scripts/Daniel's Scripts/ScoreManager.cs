@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
     public float scoreValue;
     public string scoreText;
-    public Text scoreHolder;
+    public TextMeshProUGUI scoreHolder;
+
+    public GameObject[] lifes;
 
     public GameManager gameManager;
 
@@ -30,6 +33,11 @@ public class ScoreManager : MonoBehaviour
 
     public void CountCrash()
     {
+        if(totalCrashes <= lifes.Length)
+        {
+            lifes[totalCrashes].SetActive(false);
+        }
+
         totalCrashes++;
         if(totalCrashes>=maxCrashes)
         {

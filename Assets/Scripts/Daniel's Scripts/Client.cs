@@ -37,6 +37,7 @@ public class Client : MonoBehaviour
                 taxi.clientID = clientID;
                 taxi.maxPrice = maxPrice;
                 taxi.targetMarker = targetMarker;
+                targetMarker.SetActive(true);
 
                 taxi.priceBubbleCanvas.SetActive(true);
                 taxi.priceBubbleImage.color = assignedColor;
