@@ -60,7 +60,7 @@ public class VehicleMovement : MonoBehaviour {
 
         Vector3 dir;
 
-        if (!(wp == null || currentIdx < 0 || currentIdx >= wp.Count)) {
+        if (!(wp == null || currentIdx < 0 || currentIdx >= wp.Count) && !stopped) {
             if (Vector3.Distance(target, wp[currentIdx]) < distToNext) {
                 //change point
                 if (currentIdx < wp.Count - 1) {
@@ -73,8 +73,13 @@ public class VehicleMovement : MonoBehaviour {
             }
             dir = (wp[currentIdx] - target).normalized;
         } else {
-            dir = transform.forward;
+            dir = (target-transform.position).normalized;
+            if (dir.magnitude == 0) dir = transform.forward;
+            Debug.Log("auto)");
+
         }
+
+        //if (Vector3.Distance(transform.position, target) < .1f) target = transform.position + transform.forward*(distToKeep+1);
 
         if (!taxi.Crashed) {
             target += dir * speed * Time.deltaTime;
@@ -106,5 +111,9 @@ public class VehicleMovement : MonoBehaviour {
 
 
     // other
+    private void OnDrawGizmos() {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(target, 1f);
+    }
 
 }
