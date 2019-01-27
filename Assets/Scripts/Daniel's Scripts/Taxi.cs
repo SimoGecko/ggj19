@@ -32,6 +32,7 @@ public class Taxi : MonoBehaviour
     public float blinkOutInterval;
     public float zOffset;
 
+    public bool Crashed { get; private set; }
 
     private void Start()
     {
@@ -108,6 +109,7 @@ public class Taxi : MonoBehaviour
         {
             print("collided with " + other.tag);
             // FREEZE MOVEMENT HERE
+            Crashed = true;
             audioManager.Play("CarCrash_01");
             EmptyTaxi();
             scoreManager.CountCrash();

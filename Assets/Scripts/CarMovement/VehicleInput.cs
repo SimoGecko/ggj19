@@ -27,12 +27,13 @@ public class VehicleInput : MonoBehaviour {
 
     // --------------------- BASE METHODS ------------------
     void Start () {
-        vehicle = FindObjectOfType<VehicleMovement>();
+        //vehicle = FindObjectOfType<VehicleMovement>();
 	}
 	
 	void Update () {
         if(graphToFollow==null)
             graphToFollow = FindObjectOfType<Graph>();
+
         if (!dragging && Input.GetMouseButtonDown(0))
             StartDragging();
         if (dragging) {
@@ -50,8 +51,14 @@ public class VehicleInput : MonoBehaviour {
     void StartDragging() {
         dragging = true;
         vertices.Clear();
+
+        VehicleMovement[] vehicles = FindObjectsOfType<VehicleMovement>();
+        if (vehicles.Length == 0) return;
+        Vector3 mouseclick = Utility.MousePosition();
+        vehicle = Utility.GetMin(vehicles, x => Vector3.SqrMagnitude(x.transform.position - mouseclick));
     }
     void ContinueDragging() {
+        if (vehicle == null) return;
         Vertex closest = Closest();
         bool closeEnough = Vector3.Distance(closest.position, Utility.MousePosition()) < distToConnect;
         bool notDuplicate = !vertices.Contains(closest);
@@ -61,6 +68,7 @@ public class VehicleInput : MonoBehaviour {
     }
     void EndDragging() {
         dragging = false;
+        if (vehicle == null) return;
         vehicle.GetPath(vertices.Select(x => x.position).ToList());
     }
 

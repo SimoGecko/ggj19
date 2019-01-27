@@ -26,15 +26,19 @@ public class VehicleMovement : MonoBehaviour {
     // references
     //public Transform[] samplePoints;
     LineRenderer lr;
-	
+    Taxi taxi;
 	
 	// --------------------- BASE METHODS ------------------
 	void Start () {
         lr = GetComponent<LineRenderer>();
+        
         lr.positionCount = 0;
         stopped = true;
 
         //GetPath(samplePoints.Select(x => x.position).ToList());
+        target = transform.position;
+        transform.forward = Vector3.right;
+        taxi = GetComponentInChildren<Taxi>();
     }
 
     void Update () {
@@ -53,23 +57,30 @@ public class VehicleMovement : MonoBehaviour {
     }
 
     private void Move() {
-        if (wp == null || currentIdx < 0 || currentIdx >= wp.Count) return;
-        if(Vector3.Distance(target, wp[currentIdx]) < distToNext) {
-            //change point
-            if (currentIdx < wp.Count - 1) {
-                //increase
-                currentIdx++;
-            } else {
-                //stop
-                stopped = true;
+
+        Vector3 dir;
+
+        if (!(wp == null || currentIdx < 0 || currentIdx >= wp.Count)) {
+            if (Vector3.Distance(target, wp[currentIdx]) < distToNext) {
+                //change point
+                if (currentIdx < wp.Count - 1) {
+                    //increase
+                    currentIdx++;
+                } else {
+                    //stop
+                    stopped = true;
+                }
             }
+            dir = (wp[currentIdx] - target).normalized;
+        } else {
+            dir = transform.forward;
         }
-        if (!stopped) {
-            //move along
-            target += (wp[currentIdx]-target).normalized * speed * Time.deltaTime;
+
+        if (!taxi.Crashed) {
+            target += dir * speed * Time.deltaTime;
 
             transform.LookAt(target);
-            if(Vector3.Distance(transform.position, target) >= distToKeep) {
+            if (Vector3.Distance(transform.position, target) >= distToKeep) {
                 transform.position = target - (target - transform.position).normalized * distToKeep;
             }
         }
