@@ -42,6 +42,7 @@ public class ScoreManager : MonoBehaviour
         totalCrashes++;
         if(totalCrashes>=maxCrashes)
         {
+            gameManager.gameOverScore.text = "You earned: " + scoreValue + "$";
             gameManager.GameOver();
         }
     }

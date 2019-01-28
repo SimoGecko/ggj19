@@ -107,6 +107,7 @@ public class Taxi : MonoBehaviour
         taxiRenderer.materials[0].color = startColor;
         isOccupied = false;
         priceBubbleCanvas.SetActive(false);
+        taxiManager.clientsPresent--;
     }
 
     public void Honk()

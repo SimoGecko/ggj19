@@ -43,9 +43,13 @@ public class TaxiManager2 : MonoBehaviour
     public float spawnTaxiDelay;
     public float taxiCountdown;
 
+    [HideInInspector]
     public AudioManager audioManager;
     public int taxisPresent;
     public int maxAmountTaxis;
+
+    public int clientsPresent;
+    public int maxAmountClients;
 
     // Start is called before the first frame update
     void Start()
@@ -98,7 +102,15 @@ public class TaxiManager2 : MonoBehaviour
 
     IEnumerator SpawnClient()
     {
+        if(clientsPresent>=maxAmountClients)
+        {
+            yield break;
+        }
+
+        
         clientID++;
+        clientsPresent++;
+
 
 
     // GENERATING RANDOM VALUES BUT NEVER SAME TWICE IN A ROW.

@@ -14,6 +14,7 @@ public class AudioManager : MonoBehaviour
 
             s.audioSource.volume = s.volume;
             s.audioSource.pitch = s.pitch;
+            s.audioSource.loop = s.loop;
         }
     }
 

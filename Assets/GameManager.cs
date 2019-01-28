@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     public bool isPaused;
-    public AudioManager audioManager;
 
     public GameObject startMenu;
     public GameObject restartMenu;
+    public GameObject controlsMenu;
 
     public TaxiManager2 taxiManager;
+    public AudioManager audioManager;
+
+    public TextMeshProUGUI gameOverScore;
 
     private void Start()
     {
@@ -26,12 +30,17 @@ public class GameManager : MonoBehaviour
         audioManager.Play("ThemeMusic_01");
     }
 
-    private void Update()
+    /* private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.R))
+        if(Input.GetKeyDown(KeyCode.Escape))
         {
             TogglePause();
         }
+    } */
+
+    public void OpenControls()
+    {
+        controlsMenu.SetActive(true);
     }
 
     void TogglePause()
@@ -44,7 +53,7 @@ public class GameManager : MonoBehaviour
         } else {
             print("PAUSE");
             isPaused = true;
-            Time.timeScale = 0f;
+            Time.timeScale = 0.000000000001f;
         }
     }
 
@@ -63,4 +72,10 @@ public class GameManager : MonoBehaviour
         taxiManager.enabled = false;
         restartMenu.SetActive(true);
     }
+
+    public void CloseGame()
+    {
+        Application.Quit();
+    }
+
 }

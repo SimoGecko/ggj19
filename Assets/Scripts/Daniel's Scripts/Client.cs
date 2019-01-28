@@ -19,7 +19,7 @@ public class Client : MonoBehaviour
     {
         transform.GetChild(0).GetComponent<Renderer>().materials[1].color = assignedColor;
         priceBubbleImage.color = assignedColor;
-        maxPrice = Random.Range(5,10);
+        maxPrice = Random.Range(10,20);
         priceBubbleText.text = maxPrice + "$";
     }
 
