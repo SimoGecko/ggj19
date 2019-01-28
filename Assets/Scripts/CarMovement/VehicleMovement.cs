@@ -27,11 +27,11 @@ public class VehicleMovement : MonoBehaviour {
     //public Transform[] samplePoints;
     LineRenderer lr;
     Taxi taxi;
-	
-	// --------------------- BASE METHODS ------------------
-	void Start () {
+
+    // --------------------- BASE METHODS ------------------
+    void Start() {
         lr = GetComponent<LineRenderer>();
-        
+
         lr.positionCount = 0;
         stopped = true;
 
@@ -41,10 +41,10 @@ public class VehicleMovement : MonoBehaviour {
         taxi = GetComponentInChildren<Taxi>();
     }
 
-    void Update () {
+    void Update() {
         Move();
         UpdateLineRenderer();
-	}
+    }
 
     // --------------------- CUSTOM METHODS ----------------
 
@@ -73,9 +73,9 @@ public class VehicleMovement : MonoBehaviour {
             }
             dir = (wp[currentIdx] - target).normalized;
         } else {
-            dir = (target-transform.position).normalized;
+            dir = (target - transform.position).normalized;
             if (dir.magnitude == 0) dir = transform.forward;
-           // Debug.Log("auto)");
+            // Debug.Log("auto)");
 
         }
 
@@ -105,6 +105,11 @@ public class VehicleMovement : MonoBehaviour {
         }
     }
 
+
+    public void SetNewPosition(Vector3 p){
+        transform.position = p;
+        target = p + transform.forward * distToKeep;
+    }
 
     // queries
 
